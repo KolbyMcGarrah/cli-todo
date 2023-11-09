@@ -9,7 +9,13 @@ to add a new task, press the `a` button while in the list view. This will bring 
 in the `list` view, navigate the tasks with the arrow keys or the `k` `j` keys. select tasks by pressing the `space` key or `enter` key. Delete selected tasks by pressing the `d` key.
 
 ## Installation
-This is available to install via homebrew. After installing homebrew, you will need to connect to the tap with the following command
+This is available to install via homebrew, or can be run as a binary by cloning the repo and using the 
+```Go
+go build -o <name-that-you-want>
+```
+
+### Installing with Homebrew
+After installing homebrew, you will need to connect to the tap with the following command
 ```shell
 brew tap kolbymcgarrah/kolbymcgarrah
 ```
