@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"fmt"
+	"os"
 
 	"github.com/boltdb/bolt"
 	"github.com/kolbymcgarrah/cli-todo/internal/task"
@@ -14,7 +15,11 @@ type TaskDB struct {
 }
 
 func OpenDB() (*TaskDB, error) {
-	db, err := bolt.Open("task.db", 0777, nil)
+	err := os.MkdirAll("~/.cli-todo", 0777)
+	if err != nil {
+		fmt.Println(err)
+	}
+	db, err := bolt.Open("~/.cli-todo/task.db", 0777, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database: %w", err)
 	}

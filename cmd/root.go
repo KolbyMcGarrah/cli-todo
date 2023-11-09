@@ -20,6 +20,7 @@ func Execute() error {
 			if err != nil {
 				return fmt.Errorf("error opening db: %w", err)
 			}
+			client.CreateTaskBucket()
 			listModel, err := tui.NewListModel(client)
 			if err != nil {
 				return fmt.Errorf("error creating model: %w", err)
