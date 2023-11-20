@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path"
 
 	"github.com/boltdb/bolt"
 	"github.com/kolbymcgarrah/cli-todo/internal/task"
@@ -15,11 +16,16 @@ type TaskDB struct {
 }
 
 func OpenDB() (*TaskDB, error) {
-	err := os.MkdirAll("~/.cli-todo", 0777)
+	dir, err := os.UserHomeDir()
+	if err != nil {
+		return nil, fmt.Errorf("unable to get user home dir: %w", err)
+	}
+	dbpath := path.Join(dir, ".cli-todo/")
+	err = os.MkdirAll(dbpath, 0777)
 	if err != nil {
 		fmt.Println(err)
 	}
-	db, err := bolt.Open("~/.cli-todo/task.db", 0777, nil)
+	db, err := bolt.Open(path.Join(dbpath, "task.db"), 0777, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database: %w", err)
 	}
